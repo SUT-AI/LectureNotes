@@ -6,7 +6,7 @@ on:
 jobs:
   setup-python:
     runs-on: ubuntu-20.04
-    steps:
+    steps: &setup-python
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
       
@@ -25,8 +25,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: setup-python
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+      *setup-python
 
       - name: Build notebooks
         run: python build/build_notebooks.py /${{ github.event.repository.name }}
