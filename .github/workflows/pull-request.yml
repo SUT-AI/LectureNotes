@@ -25,17 +25,17 @@ jobs:
         id: permission
         uses: scherermichael-oss/action-has-permission@master
         with:
-          required-permission: write
+          required-permission: read
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Get changed files
-        if: "! steps.check.outputs.has-permission"
+        if: steps.check.outputs.has-permission
         id: files
         uses: jitterbit/get-changed-files@v1
 
       - name: Check files for read-only accesses
-        if: "! steps.check.outputs.has-permission"
+        if: steps.check.outputs.has-permission
         run: python build/check_notebook_changes.py ${{ steps.files.outputs.all }}
 
   check-notebooks:
