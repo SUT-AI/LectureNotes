@@ -23,7 +23,7 @@ jobs:
       
       - name: Build notebooks
         run: python build/build_notebooks.py /${{ github.event.repository.name }}
-        
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
