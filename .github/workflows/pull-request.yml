@@ -4,9 +4,9 @@ on:
     branches:
       - master
 jobs:
-  setup-python:
+  build-notebook:
     runs-on: ubuntu-20.04
-    steps: &setup-python
+    steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
       
@@ -21,11 +21,8 @@ jobs:
       - name: Install Requirements
         run: pip install -r requirements.txt
 
-  build-notebook:
-    runs-on: ubuntu-20.04
-    needs: setup-python
-    steps:
-      *setup-python
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
 
       - name: Build notebooks
         run: python build/build_notebooks.py /${{ github.event.repository.name }}
