@@ -86,3 +86,5 @@ jobs:
 
       - name: Jekyll Build
         uses: jerryjvl/jekyll-build-action@v1
+      
+      - run: ls _site/notebooks/
