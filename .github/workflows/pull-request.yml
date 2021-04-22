@@ -19,7 +19,7 @@ jobs:
         run: export PATH="$CONDA/bin:$PATH"
       
       - name: Install Requirements
-        run: pip install -r requirements.txt
+        run: pip install -r build/requirements.txt
       
       - name: Check notebooks
         env:
@@ -54,7 +54,7 @@ jobs:
         run: export PATH="$CONDA/bin:$PATH"
       
       - name: Install Requirements
-        run: pip install -r requirements.txt
+        run: pip install -r build/requirements.txt
 
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
