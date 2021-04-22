@@ -1,9 +1,3 @@
-_site/
-.sass-cache/
-.jekyll-cache/
-.jekyll-metadata
-**/.DS_Store
-
 # built notebooks
 _includes/notebooks
 _data/authors
