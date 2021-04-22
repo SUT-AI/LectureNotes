@@ -52,7 +52,7 @@ jobs:
           path: template/
 
       - name: Extract Template Files
-        run: bash template/scripts/extract_template_files.sh template/jekyll .
+        run: bash template/scripts/extract_template_files.sh template .
 
       - name: Remove Template Source
         run: rm -rf template
