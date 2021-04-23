@@ -69,7 +69,7 @@ jobs:
         run: pip install -r build/requirements.txt
 
       - name: Build notebooks
-        run: python build/build_notebooks.py --baseurl /${{ github.event.repository.name }}
+        run: python build/build_notebooks.py --baseurl /${{ github.event.repository.name }} --repo_full_name ${{ github.event.repository.full_name }}
 
       - name: Jekyll Build
         uses: jerryjvl/jekyll-build-action@v1
