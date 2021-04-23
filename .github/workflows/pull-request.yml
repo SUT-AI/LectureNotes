@@ -4,45 +4,23 @@ on:
     branches:
       - master
 jobs:
-  check-notebook-changes:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
-      
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Add conda to path
-        run: export PATH="$CONDA/bin:$PATH"
-      
-      - name: Install Requirements
-        run: pip install -r requirements.txt
-
-      - name: Check user permission
-        id: permission
-        uses: scherermichael-oss/action-has-permission@master
-        with:
-          required-permission: read
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Get changed files
-        if: steps.check.outputs.has-permission
-        id: files
-        uses: jitterbit/get-changed-files@v1
-
-      - name: Check files for read-only accesses
-        if: steps.check.outputs.has-permission
-        run: python build/check_notebook_changes.py ${{ steps.files.outputs.all }}
-
   check-notebooks:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
+
+      - name: Checkout Github Pages Template
+        uses: actions/checkout@v2.3.1
+        with:
+          repository: ahmadsalimi/NotebookPages
+          path: template/
+
+      - name: Extract Template Files
+        run: bash template/scripts/extract_template_files.sh template .
+
+      - name: Remove Template Source
+        run: rm -rf template
       
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -53,7 +31,7 @@ jobs:
         run: export PATH="$CONDA/bin:$PATH"
       
       - name: Install Requirements
-        run: pip install -r requirements.txt
+        run: pip install -r build/requirements.txt
       
       - name: Check notebooks
         env:
@@ -66,6 +44,18 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
+
+      - name: Checkout Github Pages Template
+        uses: actions/checkout@v2.3.1
+        with:
+          repository: ahmadsalimi/NotebookPages
+          path: template/
+
+      - name: Extract Template Files
+        run: bash template/scripts/extract_template_files.sh template .
+
+      - name: Remove Template Source
+        run: rm -rf template
       
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -76,10 +66,7 @@ jobs:
         run: export PATH="$CONDA/bin:$PATH"
       
       - name: Install Requirements
-        run: pip install -r requirements.txt
-
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+        run: pip install -r build/requirements.txt
 
       - name: Build notebooks
         run: python build/build_notebooks.py --baseurl /${{ github.event.repository.name }}
