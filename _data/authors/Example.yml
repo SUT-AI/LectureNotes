@@ -6,6 +6,8 @@
       url: mailto:ahsalimi@ce.sharif.edu
     - icon: fab fa-github
       url: https://github.com/ahmadsalimi
+    - icon: fab fa-linkedin
+      url: https://linkedin.com/in/ahmadsalimi
 
 - name: Unknown
   image: default.png
